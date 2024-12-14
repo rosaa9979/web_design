@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미래의 게임</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(135, 206, 250, 0.8); /* Sky blue with transparency */
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        nav {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            background-color: rgba(249, 249, 249, 0.9);
+        }
+
+        nav div {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background-color: rgba(249, 249, 249, 0.9);
+            border-right: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+        nav div:last-child {
+            border-right: none;
+        }
+
+        nav div.active {
+            background-color: #0066cc;
+            color: white;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .content section {
+            display: none;
+        }
+
+        .content section.active {
+            display: block;
+        }
+
+        .floating-image {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            pointer-events: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>미래의 게임</h1>
+    </header>
+    <div class="container">
+        <nav>
+            <div id="ar-tab" class="active">AR</div>
+            <div id="vr-tab">VR</div>
+        </nav>
+        <div class="content">
+            <section id="ar-content" class="active">
+                <h2>AR (Augmented Reality)</h2>
+                <p>AR은 현실 세계에 디지털 정보를 겹쳐서 보여주는 기술입니다. 게임에서 AR은 사용자에게 몰입감을 주는 새로운 경험을 제공합니다.</p>
+            </section>
+            <section id="vr-content">
+                <h2>VR (Virtual Reality)</h2>
+                <p>VR은 사용자를 완전히 가상 세계로 안내하여 현실감을 잊게 만드는 기술입니다. 게임에서 VR은 현실감 있는 인터랙션과 탐험을 가능하게 합니다.</p>
+            </section>
+        </div>
+    </div>
+
+    <img id="left-image" class="floating-image hidden" src="a.jpg" alt="Left Image">
+    <img id="right-image" class="floating-image hidden" src="b.jpg" alt="Right Image">
+
+    <script>
+        const arTab = document.getElementById('ar-tab');
+        const vrTab = document.getElementById('vr-tab');
+        const arContent = document.getElementById('ar-content');
+        const vrContent = document.getElementById('vr-content');
+
+        const leftImage = document.getElementById('left-image');
+        const rightImage = document.getElementById('right-image');
+
+        document.addEventListener('mousemove', (event) => {
+            const midX = window.innerWidth / 2;
+
+            if (event.clientX < midX) {
+                leftImage.classList.remove('hidden');
+                rightImage.classList.add('hidden');
+                leftImage.style.top = `${event.clientY + 10}px`;
+                leftImage.style.left = `${event.clientX - 410}px`;
+            } else {
+                rightImage.classList.remove('hidden');
+                leftImage.classList.add('hidden');
+                rightImage.style.top = `${event.clientY + 10}px`;
+                rightImage.style.left = `${event.clientX + 10}px`;
+            }
+        });
+
+        arTab.addEventListener('click', () => {
+            arTab.classList.add('active');
+            vrTab.classList.remove('active');
+            arContent.classList.add('active');
+            vrContent.classList.remove('active');
+        });
+
+        vrTab.addEventListener('click', () => {
+            vrTab.classList.add('active');
+            arTab.classList.remove('active');
+            vrContent.classList.add('active');
+            arContent.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
